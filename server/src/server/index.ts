@@ -1,4 +1,4 @@
-import Koa, {Context} from "koa";
+import Koa from "koa";
 import serve from "koa-static";
 import bodyParser from "koa-bodyparser";
 import cors from "@koa/cors";
@@ -13,10 +13,8 @@ import fs from 'fs';
 
 export default class App {
     app: Koa;
-    origin: string;
     config: ConfigOptions;
     staticFolderPath: string;
-    indexFile: string;
 
     constructor(config: ConfigOptions) {
         this.app = new Koa();
@@ -51,6 +49,12 @@ export default class App {
                 const index = path.join(this.staticFolderPath, this.config.server.indexFile);
                 ctx.body = fs.readFileSync(index, 'utf8');
             } catch (error) {
+                ctx.body = `
+                    <h2>404</h2>
+                    <h3><code>index.html</code> not found in build folder</h3>
+                    <p>Make sure you run <code>npm run build</code> command</p>
+                `;
+                ctx.status = 404;
                 log.error(error.message || error.toString());
             }
         });
