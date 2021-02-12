@@ -26,3 +26,15 @@ export enum ErrorType {
     mongoError = 'MongoError',
     validationError = 'ValidationError',
 }
+
+export enum MongoErrorCode {
+    duplicateKey = 11000
+}
+
+export type MongoErrorType = {
+    message: string,
+    code: number,
+    keyValue: {
+        [key: string]: string
+    }
+};

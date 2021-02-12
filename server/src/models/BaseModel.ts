@@ -1,9 +1,9 @@
 import {Model} from 'mongoose';
 
-export default class BaseModel<ReturnType, RequestType> {
+export default abstract class BaseModel<ReturnType, RequestType> {
     protected model: typeof Model;
 
-    constructor(model: typeof Model) {
+    protected constructor(model: typeof Model) {
         this.model = model;
     }
 
