@@ -22,5 +22,7 @@ export enum ErrorCode {
 
 export enum ErrorType {
     typeError = 'TypeError',
-    castError = 'CastError'
+    castError = 'CastError',
+    mongoError = 'MongoError',
+    validationError = 'ValidationError',
 }

@@ -8,8 +8,8 @@ import ErrorHandler from "../middlewares/ErrorHandler";
 import {Env} from "../types";
 import {ConfigOptions} from "../types/config";
 import {Server as httpServer} from "http";
-import path from 'path';
-import fs from 'fs';
+import path from "path";
+import fs from "fs";
 
 export default class App {
     app: Koa;
@@ -21,41 +21,34 @@ export default class App {
         this.config = config;
         // Makes publicly accessible React build folder
         this.staticFolderPath = path.join(__dirname, config.server.staticFolderPath);
-    }
-
-    init(): App {
-        this.app.use(ErrorHandler.handle);
-
+        // Allow any cross-domain requests when not Production environment
         if (process.env.NODE_ENV !== Env.Prod) {
             this.config.origin = '*';
         }
+    }
 
-        this.app.use(cors({
-            origin: this.config.origin
-        }));
-
-        this.app.use(bodyParser());
-
+    init(): App {
         const router = routes(this.config);
+        this.app.use(ErrorHandler.handle);
+        this.app.use(cors({origin: this.config.origin}));
+        this.app.use(bodyParser());
         this.app.use(router.allowedMethods());
         this.app.use(router.routes());
-
         // Serve files from public static folder
         this.app.use(serve(this.staticFolderPath));
-
         // Redirect all requests to index.html - for React-router
-        this.app.use(async (ctx) => {
+        this.app.use(ctx => {
             try {
                 const index = path.join(this.staticFolderPath, this.config.server.indexFile);
                 ctx.body = fs.readFileSync(index, 'utf8');
             } catch (error) {
                 ctx.body = `
-                    <h2>404</h2>
-                    <h3><code>index.html</code> not found in build folder</h3>
+                    <h2>Not Found 404</h2>
+                    <p><b>index.html</b> not found in <b>build</b> folder</p>
                     <p>Make sure you run <code>npm run build</code> command</p>
                 `;
                 ctx.status = 404;
-                log.error(error.message || error.toString());
+                log.error(error.message || error?.toString());
             }
         });
 

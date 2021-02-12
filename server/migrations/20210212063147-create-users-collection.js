@@ -1,7 +1,6 @@
 module.exports = {
   async up(db) {
-    // See https://github.com/seppevs/migrate-mongo/#creating-a-new-migration-script
-    await db.createCollection("koaUsers", {
+    await db.createCollection("users", {
       validator: { $jsonSchema: {
           bsonType: "object",
           required: [ "username", "password" ],
@@ -14,21 +13,24 @@ module.exports = {
               bsonType : "string",
               description: "must be a string and is required"
             },
+            coursesFinished: {
+              bsonType: "array",
+              description: "list of course identifiers",
+            },
+            coursesInProgress: {
+              bsonType: "array",
+              description: "list of courses that are in progress",
+            },
             status: {
               enum: [ "active", "blocked" ],
-              description: "can only be one of the enum values"
+              description: "can only be one of the enum values",
             }
           }
         } }
     });
-    await db.collection('koaUsers').insertOne({
-      "username": "koa",
-      "password": "koa-pass",
-      "status": "active"
-    });
   },
 
   async down(db) {
-    await db.collection('koaUsers').drop();
+    await db.collection('users').drop();
   }
 };

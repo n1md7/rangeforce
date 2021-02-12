@@ -1,15 +1,11 @@
 import dotenv from "dotenv";
-import {Env} from './types';
 
-// When it is executed outside docker env - parse .env file
-if (process.env.EXEC_ENV !== Env.Docker) {
-    dotenv.config();
-}
+dotenv.config();
 
 import initDatabase from "./database";
 import config from "./config";
 import App from "./server";
-import log from './logger';
+import log from "./logger";
 
 ( async () => {
     try {

@@ -39,7 +39,7 @@ class Logger {
             format.printf((log) => {
                 const {level, message, timestamp} = log;
 
-                return `${level.toUpperCase()} [${timestamp}]: ${message.toString()}`
+                return `${level.toUpperCase()} [${timestamp}]: ${message?.toString()}`
             })
         );
     }

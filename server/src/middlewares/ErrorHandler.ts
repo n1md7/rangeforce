@@ -18,6 +18,11 @@ export default class ErrorHandler {
     private static sendErrorResponse(error: Error, ctx: Context) {
 
         switch (error.name) {
+            case ErrorType.mongoError:
+            case ErrorType.validationError:
+                ctx.status = ErrorCode.badRequest;
+                ctx.body = error.message;
+                break;
             case ErrorType.typeError:
             case ErrorType.castError:
                 ctx.status = ErrorCode.badRequest;
