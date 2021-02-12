@@ -17,32 +17,26 @@ module.exports = {
                         type: {
                             bsonType: "string",
                             description: "must be a string",
-                            // default: null
                         },
                         difficulty: {
                             enum: ["piece of cake", "very easy", "easy", "medium", "hard", "too hard", "extremely hard"],
                             description: "must be a string",
-                            // default: "easy"
                         },
                         tags: {
                             bsonType: "array",
                             description: "must be an array",
-                            // default: []
                         },
                         status: {
                             enum: ["active", "hidden"],
                             description: "can only be one of the enum values",
-                            // default: "active"
                         },
                         createdAt: {
                             bsonType: "date",
                             description: "module create date",
-                            // default: new Date()
                         },
                         updatedAt: {
                             bsonType: "date",
                             description: "module update date",
-                            // default: new Date()
                         },
                         usage: {
                             bsonType: "array",

@@ -1,5 +1,5 @@
 import {Context, Next} from "koa";
-import {ErrorType, ErrorText, ErrorCode} from "../types/errorHandler";
+import {ErrorType, HttpText, HttpCode} from "../types/errorHandler";
 
 export default class ErrorHandler {
     static async handle(ctx: Context, next: Next): Promise<void> {
@@ -9,8 +9,8 @@ export default class ErrorHandler {
     }
 
     private static buildErrorMessage(error: Error, ctx: Context) {
-        const status: number = ctx.status || ErrorCode.internalServerError;
-        const errorMessage: string = error.message || ErrorText.internalServerError;
+        const status: number = ctx.status || HttpCode.internalServerError;
+        const errorMessage: string = error.message || HttpText.internalServerError;
 
         return `[${error.name}]:[${status} - ${errorMessage}]`;
     }
@@ -20,17 +20,17 @@ export default class ErrorHandler {
         switch (error.name) {
             case ErrorType.mongoError:
             case ErrorType.validationError:
-                ctx.status = ErrorCode.badRequest;
+                ctx.status = HttpCode.badRequest;
                 ctx.body = error.message;
                 break;
             case ErrorType.typeError:
             case ErrorType.castError:
-                ctx.status = ErrorCode.badRequest;
-                ctx.body = ErrorText.noContent;
+                ctx.status = HttpCode.badRequest;
+                ctx.body = HttpText.noContent;
                 break;
             default:
-                ctx.status = ErrorCode.internalServerError;
-                ctx.body = ErrorText.internalServerError;
+                ctx.status = HttpCode.internalServerError;
+                ctx.body = HttpText.internalServerError;
         }
 
         ctx.app.emit('error', ErrorHandler.buildErrorMessage(error, ctx));

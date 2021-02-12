@@ -1,4 +1,4 @@
-export enum ErrorText {
+export enum HttpText {
     internalServerError = 'Internal Server Error',
     badRequest = 'Bad Request',
     unauthorized = 'Unauthorized',
@@ -9,7 +9,7 @@ export enum ErrorText {
     created = 'Created'
 }
 
-export enum ErrorCode {
+export enum HttpCode {
     internalServerError = 500,
     badRequest = 400,
     unauthorized = 401,
