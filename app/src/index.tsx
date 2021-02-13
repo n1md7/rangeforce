@@ -5,10 +5,12 @@ import './styles/index.scss';
 import './styles/App.scss';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import {ToastContainer} from 'react-toastify';
 
 ReactDOM.render(
   <React.StrictMode>
     <App />
+    <ToastContainer limit={4} newestOnTop={true}/>
   </React.StrictMode>,
   document.getElementById('root')
 );

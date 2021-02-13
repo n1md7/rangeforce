@@ -4,7 +4,6 @@ import Category from './components/Category';
 import useData from './hooks/useData';
 import Ranking from './components/Ranking';
 import TopModules from './components/TopModules';
-import { ToastContainer } from "react-toastify";
 
 function App() {
     const [categoryIndex, setCategoryIndex] = useState(-1);
@@ -40,7 +39,6 @@ function App() {
                 <TopModules modules={modules}/>
                 <Ranking users={users} totalModules={total}/>
             </div>
-            <ToastContainer limit={4} newestOnTop={true}/>
         </>
     );
 }
