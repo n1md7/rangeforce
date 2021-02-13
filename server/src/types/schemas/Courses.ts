@@ -10,7 +10,7 @@ export type CourseRequestType = {
 export type CourseSchemaType = {
     _id: string;
     modules: [];
-    tags: [];
+    category: string;
     status: CourseStatus;
 } & CourseRequestType;
 

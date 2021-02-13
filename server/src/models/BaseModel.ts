@@ -1,6 +1,7 @@
 import {Model} from 'mongoose';
 
 export default abstract class BaseModel<ReturnType, RequestType> {
+
     protected model: typeof Model;
 
     protected constructor(model: typeof Model) {

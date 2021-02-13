@@ -1,4 +1,4 @@
-import Koa from "koa";
+import Koa, {Context} from "koa";
 import serve from "koa-static";
 import bodyParser from "koa-bodyparser";
 import cors from "@koa/cors";
@@ -10,6 +10,7 @@ import {ConfigOptions} from "../types/config";
 import {Server as httpServer} from "http";
 import path from "path";
 import fs from "fs";
+import {HttpCode, HttpText} from '../types/errorHandler';
 
 export default class App {
     app: Koa;
@@ -37,7 +38,16 @@ export default class App {
         // Serve files from public static folder
         this.app.use(serve(this.staticFolderPath));
         // Redirect all requests to index.html - for React-router
-        this.app.use(ctx => {
+        this.app.use((ctx: Context) => {
+            if (ctx.path.indexOf(this.config.server.apiContextPath) !== -1) {
+                // Request came to api endpoint
+                ctx.status = HttpCode.notFound;
+                return ctx.body = {
+                    code: HttpCode.notFound,
+                    message: HttpText.notFound
+                };
+            }
+
             try {
                 const index = path.join(this.staticFolderPath, this.config.server.indexFile);
                 ctx.body = fs.readFileSync(index, 'utf8');

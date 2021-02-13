@@ -14,9 +14,9 @@ const Courses = new Schema({
         type: Array,
         default: []
     },
-    tags: {
-        type: Array,
-        default: []
+    category: {
+        type: String,
+        default: ""
     },
     status: {
         type: String,

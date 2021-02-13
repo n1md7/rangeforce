@@ -63,6 +63,7 @@
     "koa-morgan": "^1.0.1",
     "koa-static": "^5.0.0",
     "migrate-mongo": "^8.1.4",
+    "moment": "^2.29.1",
     "mongodb": "^3.6.4",
     "mongoose": "^5.11.15",
     "node-cache": "^5.1.2",

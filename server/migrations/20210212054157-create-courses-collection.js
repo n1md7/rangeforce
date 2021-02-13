@@ -14,9 +14,9 @@ module.exports = {
                             bsonType: "array",
                             description: "must be an array and is not required",
                         },
-                        tags: {
-                            bsonType: "array",
-                            description: "must be an array and is not required",
+                        category: {
+                            bsonType: "string",
+                            description: "must be a string and is not required",
                         },
                         status: {
                             enum: ["active", "hidden"],

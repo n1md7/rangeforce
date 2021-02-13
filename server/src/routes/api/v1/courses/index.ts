@@ -5,6 +5,8 @@ const courseRouter = new Router();
 
 courseRouter.get('/course/:id', CourseController.course);
 courseRouter.get('/courses', CourseController.courses);
-courseRouter.post('/course', CourseController.course);
+courseRouter.get('/categories', CourseController.getCategories);
+courseRouter.put('/course/:id/add-module', CourseController.addModule);
+courseRouter.post('/course', CourseController.create);
 
 export default courseRouter;

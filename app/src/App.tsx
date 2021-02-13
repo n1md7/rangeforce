@@ -1,26 +1,48 @@
-import React from 'react';
-import logo from './logo.svg';
-import './styles/App.scss';
+import React, {useState} from 'react';
+import Filter from './components/Filter';
+import Category from './components/Category';
+import useData from './hooks/useData';
+import Ranking from './components/Ranking';
+import TopModules from './components/TopModules';
+import { ToastContainer } from "react-toastify";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload!
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [categoryIndex, setCategoryIndex] = useState(-1);
+    const [categories, modules, users, total, loading] = useData();
+    const [dropDownShow, setDropdownShow] = useState(false);
+
+    const dropDownHandler = () => setDropdownShow(show => !show);
+    const setCategoryHandler = (value: number) => () => {
+        setDropdownShow(false);
+        setCategoryIndex(value);
+    };
+
+    if(loading){
+        return (
+            <div>Loading...</div>
+        );
+    }
+
+    return (
+        <>
+            <div className="container-fluid courses mt-3">
+                <Filter
+                    categories={categories}
+                    state={dropDownShow}
+                    setCategoryHandler={setCategoryHandler}
+                    dropDownHandler={dropDownHandler}
+                />
+                {
+                    categoryIndex !== -1 ? <Category category={categories[categoryIndex]}/> :
+                        categories.map(($category, i) =>
+                            <Category key={i} category={$category}/>)
+                }
+                <TopModules modules={modules}/>
+                <Ranking users={users} totalModules={total}/>
+            </div>
+            <ToastContainer limit={4} newestOnTop={true}/>
+        </>
+    );
 }
 
 export default App;
