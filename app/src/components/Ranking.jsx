@@ -15,7 +15,7 @@ const Ranking = ({users, totalModules}) => {
         <div className="top-users my-5 row no-gutters">
             <h1 className="text-muted mb-3">Top 5 users by </h1>
             <div className="col-auto d-flex flex-row my-auto ml-md-3">
-                <button onClick={showRankBy(Rank.topUsersByWeek)} className="btn btn-outline-primary ml-2">Week</button>
+                <button onClick={showRankBy(Rank.topUsersByWeek)} className="btn btn-outline-primary ml-md-2">Week</button>
                 <button onClick={showRankBy(Rank.topUsersByMonth)} className="btn btn-outline-success ml-2">Month</button>
             </div>
             <div className="col-12">
