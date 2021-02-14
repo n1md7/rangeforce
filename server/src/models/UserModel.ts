@@ -1,18 +1,12 @@
-import UserSchemaModel from "../database/schemas/Users";
-import {UserRequestType, UserSchemaType} from "../types/schemas/Users";
 import BaseModel from './BaseModel';
 import {monthDateRanges, weekDateRanges} from '../helpers/dateUtils';
 import users, {User, ModuleStatus} from '../store/Users';
 import {deepCopy} from '../helpers';
 
-class UserModel extends BaseModel<UserSchemaType, UserRequestType> {
+class UserModel extends BaseModel<User> {
 
-    constructor(model) {
-        super(model);
-    }
-
-    public async getUserByUsername(username: string): Promise<UserSchemaType> {
-        return this.model.findOne({username});
+    constructor(store) {
+        super(store);
     }
 
     public async getUserRankingByWeek(top: number): Promise<User[]> {
@@ -61,4 +55,4 @@ class UserModel extends BaseModel<UserSchemaType, UserRequestType> {
 
 }
 
-export default new UserModel(UserSchemaModel);
+export default new UserModel(users);

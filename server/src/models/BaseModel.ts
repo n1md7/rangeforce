@@ -1,23 +1,17 @@
-import {Model} from 'mongoose';
+export default abstract class BaseModel<StoreType> {
 
-export default abstract class BaseModel<ReturnType, RequestType> {
+    protected store: StoreType[];
 
-    protected model: typeof Model;
-
-    protected constructor(model: typeof Model) {
-        this.model = model;
+    protected constructor(store: StoreType[]) {
+        this.store = store;
     }
 
-    public async getById(id: string): Promise<ReturnType> {
-        return this.model.findById(id);
+    public async getAll(): Promise<StoreType[]> {
+        return this.store;
     }
 
-    public async getAll(): Promise<ReturnType[]> {
-        return this.model.find({});
-    }
-
-    public async save(user: RequestType): Promise<ReturnType> {
-        return await new this.model(user).save();
+    public async save(): Promise<boolean> {
+        return true;
     }
 
 }
