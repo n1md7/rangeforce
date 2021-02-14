@@ -2,7 +2,7 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-import initDatabase from "./database";
+//import initDatabase from "./database";
 import config from "./config";
 import App from "./server";
 import log from "./logger";
@@ -10,7 +10,7 @@ import log from "./logger";
 ( async () => {
     try {
         // When DB is not accessible fail the app
-        await initDatabase();
+        // await initDatabase();
         // Start Koa server
         new App(config).init().start();
     } catch (error) {

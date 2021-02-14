@@ -10,6 +10,9 @@ class UserModel extends BaseModel<User> {
     }
 
     public async getUserRankingByWeek(top: number): Promise<User[]> {
+        // This will get start date of the week
+        // And it is used to get object key directly from store
+        // rather then making extra comparisons
         const [formattedWeek] = weekDateRanges();
         const userListByCurrentWeek: User[] = deepCopy<User[]>(users)
             .map(user => {
