@@ -1,5 +1,14 @@
 # How to run
 
+## Using docker-compose - port 8080
+
+Make sure you have Docker version **19.03.0+**
+(_It generates production build so, it might take time_)
+
+```bash
+docker-compose up
+```
+
 ## Manually
 
 Make sure you have NodeJs and NPM installed and run commands below
@@ -39,8 +48,10 @@ npm run prod --prefix=./server
 
 Will be accessible from the port 8080, and it serves front-end part as well
 
-## Using docker-compose
+## Tests
+
+Backend tests
 
 ```bash
-docker-compose up
+npm run test --prefix=./server
 ```
