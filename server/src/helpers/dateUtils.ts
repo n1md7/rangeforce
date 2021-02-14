@@ -1,19 +1,15 @@
-export const monthStartDate = (currentDate = new Date()): Date => {
-    return new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
-};
+import moment from 'moment';
 
-export const monthDateRanges = (currentDate = new Date()): [Date, Date] => {
-    const startDate = monthStartDate(currentDate);
-    const endDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
+export const monthDateRanges = (currentDate = new Date()): [string, string] => {
+    const startDate = moment(currentDate).startOf('month').format('DD/MM/YYYY');
+    const endDate = moment(currentDate).endOf('month').format('DD/MM/YYYY');
 
     return [startDate, endDate];
 };
 
-export const weekDateRanges = (currentDate = new Date()): [Date, Date] => {
-    const first = currentDate.getDate() - currentDate.getDay() + 1;
-    const last = first + 7;
-    const firstDay = new Date(currentDate.setDate(first));
-    const lastDay = new Date(currentDate.setDate(last));
+export const weekDateRanges = (currentDate = new Date()): [string, string] => {
+    const firstDay = moment(currentDate).startOf('isoWeek').format('DD/MM/YYYY');
+    const lastDay = moment(currentDate).endOf('isoWeek').format('DD/MM/YYYY');
 
     return [firstDay, lastDay];
 };

@@ -1,7 +1,8 @@
 import ModuleSchemaModel from "../database/schemas/Modules";
 import {ModuleRequestType, ModuleSchemaType} from "../types/schemas/Modules";
 import BaseModel from './BaseModel';
-import {activityDateFormat, monthStartDate} from '../helpers/dateUtils';
+import {monthDateRanges} from '../helpers/dateUtils';
+import {deepCopy} from '../helpers';
 
 type Modules = {
     _id: string,
@@ -54,7 +55,7 @@ const modules: Modules[] = [
             '01/01/2021': 2,
             '01/02/2021': 14
         }
-    },{
+    }, {
         _id: "45c97585-863d-4586-83cc-e8f94623aa5d",
         name: 'Stored-XSS Overview',
         difficulty: 'hard',
@@ -77,9 +78,8 @@ class ModuleModel extends BaseModel<ModuleSchemaType, ModuleRequestType> {
         modules: Modules[],
         total: number
     }> {
-        const currentMontStartDate = monthStartDate();
-        const formattedDate = activityDateFormat(currentMontStartDate);
-        const topModules = [...modules].sort((first, second) => {
+        const [formattedDate] = monthDateRanges();
+        const topModules = deepCopy<Modules[]>(modules).sort((first, second) => {
             if (first.activity[formattedDate] < second.activity[formattedDate]) return 1;
             if (first.activity[formattedDate] > second.activity[formattedDate]) return -1;
             return 0;
